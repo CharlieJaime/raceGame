@@ -1,0 +1,3 @@
+== README
+
+This is a simple racing game build using pure html5 canvar and javascript taking keyboard input to maneuver your racing character.
