@@ -4,14 +4,27 @@ Global Var
 // Global
 var canvas, canvasContext;
 
-// Bricks
-const BRICK_W = 80;
-const BRICK_H = 20;
-const BRICK_GAP = 2;
-const BRICK_COLS = 10;
-const BRICK_ROWS = 14;
-var brickGrid = new Array(BRICK_COLS*BRICK_ROWS);
-var brickCount = 0;
+// Tracks
+const TRACK_W = 40;
+const TRACK_H = 40;
+const TRACK_GAP = 2;
+const TRACK_COLS = 20;
+const TRACK_ROWS = 15;
+var trackGrid = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ];
 
 // Ball
 var ballX = 75;
@@ -33,7 +46,6 @@ window.onload = function(){
   setInterval(updateAll, 1000/framesPerSecond);
 
   canvas.addEventListener('mousemove', updateMousePos);
-  brickReset();
   ballRest();
 }
 
@@ -47,23 +59,6 @@ function ballRest(){
   ballY = canvas.height/2;
 }
 
-function brickReset(){
-  brickCount = 0;
-  var i;
-  for (var i = 0; i < 3 * BRICK_COLS; i++) {
-    brickGrid[i] = false;
-  }
-  for (; i<BRICK_COLS*BRICK_ROWS; i++) {
-    if(Math.random()<0.5){
-      brickGrid[i] = true;
-    } else {
-      brickGrid[i] = false;
-    }
-    brickGrid[i] = true;
-    brickCount++;
-  }
-}
-
 function ballMove(){
   // ballMovement
   ballX += ballSpeedX;
@@ -72,7 +67,7 @@ function ballMove(){
   if(ballY > canvas.height){
     // ballSpeedY = -ballSpeedY;
     ballRest();
-    brickReset();
+    trackReset();
   } else if(ballY < 0 && ballSpeedY > 0.0){
     ballSpeedY = -ballSpeedY;
   }
@@ -84,42 +79,40 @@ function ballMove(){
   }
 }
 
-function isBrickAtColRow(col, row){
-  if (col >= 0 && col < BRICK_COLS &&
-      row >= 0 && row < BRICK_ROWS) {
-    var brickIndexUnderCoord= rowColToArrayIndex(col, row);
-    return brickGrid[brickIndexUnderCoord];
+function isTrackAtColRow(col, row){
+  if (col >= 0 && col < TRACK_COLS &&
+      row >= 0 && row < TRACK_ROWS) {
+    var trackIndexUnderCoord= rowColToArrayIndex(col, row);
+    return (trackGrid[trackIndexUnderCoord] == 1);
   } else{
     return false;
   }
 }
 
-function ballBrickColl(){
-  var ballBrickCol = Math.floor(ballX / BRICK_W);
-  var ballBrickRow = Math.floor(ballY / BRICK_H);
-  var brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
-  if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS){
-    if (isBrickAtColRow(ballBrickCol, ballBrickRow)) {
-      brickGrid[brickIndexUnderBall] = false;
-      brickCount--;
+function ballTrackColl(){
+  var ballTrackCol = Math.floor(ballX / TRACK_W);
+  var ballTrackRow = Math.floor(ballY / TRACK_H);
+  var trackIndexUnderBall = rowColToArrayIndex(ballTrackCol, ballTrackRow);
+  if (ballTrackCol >= 0 && ballTrackCol < TRACK_COLS && ballTrackRow >= 0 && ballTrackRow < TRACK_ROWS){
+    if (isTrackAtColRow(ballTrackCol, ballTrackRow)) {
 
       var prevBallX = ballX - ballSpeedX;
       var prevBallY = ballY - ballSpeedY;
-      var prevBrickCol = Math.floor(prevBallX / BRICK_W);
-      var prevBrickRow = Math.floor(prevBallY / BRICK_H);
+      var prevTrackCol = Math.floor(prevBallX / TRACK_W);
+      var prevTrackRow = Math.floor(prevBallY / TRACK_H);
 
 
       var bothTestFailed = true;
 
-      if(prevBrickCol != ballBrickCol){
-        if(isBrickAtColRow(prevBrickCol, ballBrickRow) == false){
+      if(prevTrackCol != ballTrackCol){
+        if(isTrackAtColRow(prevTrackCol, ballTrackRow) == false){
           ballSpeedX = -ballSpeedX;
           bothTestFailed = false;
         }
       }
 
-      if(prevBrickRow != ballBrickRow){
-        if (isBrickAtColRow(ballBrickCol, prevBrickRow) == false) {
+      if(prevTrackRow != ballTrackRow){
+        if (isTrackAtColRow(ballTrackCol, prevTrackRow) == false) {
           ballSpeedY = -ballSpeedY;
           bothTestFailed = false;
         }
@@ -132,14 +125,14 @@ function ballBrickColl(){
 
     }
   }
-  // colorText(ballBrickCol+","+ballBrickRow+": "+brickIndexUnderBall, mouseX, mouseY, 'white');
+  // colorText(ballTrackCol+","+ballTrackRow+": "+trackIndexUnderBall, mouseX, mouseY, 'white');
 }
 
 
 
 function movement(){
   ballMove();
-  ballBrickColl();
+  ballTrackColl();
 }
 
 function updateMousePos(evt) {
@@ -165,7 +158,7 @@ function playArea(){
   // ball
   colorCircle();
 
-  drawbricks();
+  drawtracks();
 }
 
 function colorRect(leftX, topY, width, height, color){
@@ -179,20 +172,20 @@ function colorText(showWords, textX,textY, fillColor) {
 }
 
 function rowColToArrayIndex(col, row){
-  return col + BRICK_COLS * row;
+  return col + TRACK_COLS * row;
 }
 
-function drawbricks(){
-  for (var eachRow=0; eachRow<BRICK_ROWS; eachRow++) {
-    for(var eachCol=0; eachCol<BRICK_COLS; eachCol++){
+function drawtracks(){
+  for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
+    for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if(brickGrid[arrayIndex]){
-        colorRect(BRICK_W*eachCol , BRICK_H*eachRow,
-          BRICK_W-BRICK_GAP, BRICK_H-BRICK_GAP, 'blue');
-      } //   if brick
-    }// each brick
-  }// each brickrow
-}// drawbricks
+      if(trackGrid[arrayIndex] == 1){
+        colorRect(TRACK_W*eachCol , TRACK_H*eachRow,
+          TRACK_W-TRACK_GAP, TRACK_H-TRACK_GAP, 'blue');
+      } //   if track
+    }// each track
+  }// each trackrow
+}// drawtracks
 
 function colorCircle(){
   canvasContext.fillStyle = 'lightgrey';
