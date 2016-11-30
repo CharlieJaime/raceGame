@@ -26,6 +26,11 @@ var trackGrid = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1,
                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ];
 
+
+//Car Image
+var carPic = document.createElement("img");
+var carPicLoaded = false;
+
 // Ball
 var ballX = 75;
 var ballSpeedX = 8;
@@ -46,6 +51,11 @@ window.onload = function(){
   setInterval(updateAll, 1000/framesPerSecond);
 
   canvas.addEventListener('mousemove', updateMousePos);
+
+  carPic.onload = function(){
+    carPicLoaded = true;
+  }
+  carPic.src = "Black_viper.png";
   ballRest();
 }
 
@@ -164,7 +174,12 @@ function playArea(){
   // gameCanvas
   colorRect(0,0,canvas.width, canvas.height, 'black');
   // ball
-  colorCircle();
+  // colorCircle();
+
+  if(carPicLoaded){
+    canvasContext.drawImage(carPic,
+      ballX - carPic.width/2, ballY - carPic.width/2);
+  }
 
   drawtracks();
 }
@@ -195,9 +210,9 @@ function drawtracks(){
   }// each trackrow
 }// drawtracks
 
-function colorCircle(){
-  canvasContext.fillStyle = 'lightgrey';
-  canvasContext.beginPath();
-  canvasContext.arc(ballX, ballY, 10, 0, Math.PI*2, true);
-  canvasContext.fill();
-}
+// function colorCircle(){
+//   canvasContext.fillStyle = 'lightgrey';
+//   canvasContext.beginPath();
+//   canvasContext.arc(ballX, ballY, 10, 0, Math.PI*2, true);
+//   canvasContext.fill();
+// }
