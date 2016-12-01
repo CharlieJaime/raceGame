@@ -84,20 +84,6 @@ function carMove(){
   carY += Math.sin(carAng) * carSpeed;
 
   carAng += 0.02;
-  // carY
-  if(carY > canvas.height){
-    // carSpeedY = -carSpeedY;
-    carRest();
-    trackReset();
-  } else if(carY < 0 && carSpeedY > 0.0){
-    carSpeedY = -carSpeedY;
-  }
-  // carx
-  if(carX > canvas.width && carSpeedX > 0.0){
-    carSpeedX = -carSpeedX;
-  } else if(carX < 0 && carSpeedX < 0.0){
-    carSpeedX = -carSpeedX;
-  }
 }
 
 function isTrackAtColRow(col, row){
@@ -116,34 +102,7 @@ function carTrackColl(){
   var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
   if (carTrackCol >= 0 && carTrackCol < TRACK_COLS && carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
     if (isTrackAtColRow(carTrackCol, carTrackRow)) {
-
-      var prevCarX = carX - carSpeedX;
-      var prevCarY = carY - carSpeedY;
-      var prevTrackCol = Math.floor(prevCarX / TRACK_W);
-      var prevTrackRow = Math.floor(prevCarY / TRACK_H);
-
-
-      var bothTestFailed = true;
-
-      if(prevTrackCol != carTrackCol){
-        if(isTrackAtColRow(prevTrackCol, carTrackRow) == false){
-          carSpeedX = -carSpeedX;
-          bothTestFailed = false;
-        }
-      }
-
-      if(prevTrackRow != carTrackRow){
-        if (isTrackAtColRow(carTrackCol, prevTrackRow) == false) {
-          carSpeedY = -carSpeedY;
-          bothTestFailed = false;
-        }
-      }
-
-      if(bothTestFailed){
-        carSpeedX = -carSpeedX;
-        carSpeedY = -carSpeedY;
-      }
-
+      carSpeed *= -1;
     }
   }
   // colorText(carTrackCol+","+carTrackRow+": "+trackIndexUnderCar, mouseX, mouseY, 'white');
