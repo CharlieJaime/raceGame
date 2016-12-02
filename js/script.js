@@ -53,6 +53,9 @@ window.onload = function(){
 
   canvas.addEventListener('mousemove', updateMousePos);
 
+  document.addEventListener('keydown', keyPressed);
+  document.addEventListener('keyup', keyReleased);
+
   carPic.onload = function(){
     carPicLoaded = true;
   }
@@ -121,12 +124,15 @@ function updateMousePos(evt) {
 
   mouseX = evt.clientX - rect.left - root.scrollLeft;
   mouseY = evt.clientY - rect.top - root.scrollTop;
+}
 
-  //cheat to test car in any position
-  // carX = mouseX;
-  // carY = mouseY;
-  // carSpeedY = 4;
-  // carSpeedY = -4;
+
+function keyPressed(evt){
+  console.log("Key pressed"+evt.keyCode);
+}
+
+function keyReleased(evt){
+  console.log("Key released"+evt.keyCode);
 }
 
 /**********
