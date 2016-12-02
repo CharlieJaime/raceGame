@@ -90,8 +90,6 @@ function carMove(){
   // carMovement
   carX += Math.cos(carAng) * carSpeed;
   carY += Math.sin(carAng) * carSpeed;
-
-  carAng += 0.02;
 }
 
 function isTrackAtColRow(col, row){
@@ -133,11 +131,23 @@ function updateMousePos(evt) {
 
 
 function keyPressed(evt){
-  console.log("Key pressed"+evt.keyCode);
+  if (evt.keyCode == KEY_LEFT_ARROW) {
+    carAng -= 0.5;
+  }
+  if (evt.keyCode == KEY_RIGHT_ARROW) {
+    carAng += 0.5;
+  }
+  if (evt.keyCode == KEY_UP_ARROW) {
+    carSpeed += 0.5;
+  }
+  if (evt.keyCode == KEY_DOWN_ARROW) {
+    carSpeed -= 0.5;
+  }
+  evt.preventDefault();
 }
 
 function keyReleased(evt){
-  console.log("Key released"+evt.keyCode);
+
 }
 
 /**********
@@ -147,7 +157,6 @@ function playArea(){
   // gameCanvas
   colorRect(0,0,canvas.width, canvas.height, 'black');
   // car
-  // colorCircle();
 
   if(carPicLoaded){
     drawBitmapCenteredWithRotations(carPic, carX, carY, carAng);
@@ -189,10 +198,3 @@ function drawtracks(){
     }// each track
   }// each trackrow
 }// drawtracks
-
-// function colorCircle(){
-//   canvasContext.fillStyle = 'lightgrey';
-//   canvasContext.beginPath();
-//   canvasContext.arc(carX, carY, 10, 0, Math.PI*2, true);
-//   canvasContext.fill();
-// }
