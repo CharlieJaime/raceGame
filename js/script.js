@@ -93,8 +93,9 @@ function carRest(){
 
 function carMove(){
   // carMovement
+  carSpeed *= 0.97;
   if (keyHeld_Gas) {
-    carSpeed += 0.2;
+    carSpeed += 0.3;
   }
   if (keyHeld_Reverse) {
     carSpeed -= 0.2;
@@ -126,7 +127,10 @@ function carTrackColl(){
   var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
   if (carTrackCol >= 0 && carTrackCol < TRACK_COLS && carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
     if (isTrackAtColRow(carTrackCol, carTrackRow)) {
-      carSpeed *= -1;
+      carX -= Math.cos(carAng) * carSpeed;
+      carY -= Math.sin(carAng) * carSpeed;
+
+      carSpeed *= -0.5;
     }
   }
   // colorText(carTrackCol+","+carTrackRow+": "+trackIndexUnderCar, mouseX, mouseY, 'white');
