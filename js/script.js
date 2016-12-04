@@ -26,6 +26,10 @@ var trackGrid = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1,
                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ];
 
+const TRACK_ROAD = 0;
+const TRACK_WALL = 1;
+const TRACK_PLAYERSTART = 2;
+
 // Keyboard arrows
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
@@ -87,8 +91,8 @@ function carRest(){
   for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
     for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if(trackGrid[arrayIndex] == 2){
-        trackGrid[arrayIndex] = 0;
+      if(trackGrid[arrayIndex] == TRACK_PLAYERSTART){
+        trackGrid[arrayIndex] = TRACK_ROAD;
         // carAng = -Math.PI/2; used to change faceing ang of car
         carX = eachCol * TRACK_W + TRACK_W/2;
         carY = eachRow * TRACK_H + TRACK_H/2.8;
@@ -117,11 +121,11 @@ function carMove(){
   carY += Math.sin(carAng) * carSpeed;
 }
 
-function isTrackAtColRow(col, row){
+function isWallAtColRow(col, row){
   if (col >= 0 && col < TRACK_COLS &&
       row >= 0 && row < TRACK_ROWS) {
     var trackIndexUnderCoord= rowColToArrayIndex(col, row);
-    return (trackGrid[trackIndexUnderCoord] == 1);
+    return (trackGrid[trackIndexUnderCoord] == TRACK_WALL);
   } else{
     return false;
   }
@@ -132,7 +136,7 @@ function carTrackColl(){
   var carTrackRow = Math.floor(carY / TRACK_H);
   var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
   if (carTrackCol >= 0 && carTrackCol < TRACK_COLS && carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
-    if (isTrackAtColRow(carTrackCol, carTrackRow)) {
+    if (isWallAtColRow(carTrackCol, carTrackRow)) {
       carX -= Math.cos(carAng) * carSpeed;
       carY -= Math.sin(carAng) * carSpeed;
 
@@ -231,7 +235,7 @@ function drawtracks(){
   for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
     for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if(trackGrid[arrayIndex] == 1){
+      if(trackGrid[arrayIndex] == TRACK_WALL){
         colorRect(TRACK_W*eachCol , TRACK_H*eachRow,
           TRACK_W-TRACK_GAP, TRACK_H-TRACK_GAP, 'blue');
       } //   if track
