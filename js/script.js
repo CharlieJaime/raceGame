@@ -46,6 +46,11 @@ var carX = 75;
 var carY = 75;
 var carSpeed = 0;
 
+const GROUNDSPEED_DECAY_MULT = 0.97;
+const DRIVE_POWER = 0.3;
+const REVERSE_POWER = 0.3;
+const TURN_RATE = 0.06;
+
 var carAng = 0;
 
 // Mouse
@@ -94,18 +99,18 @@ function carRest(){
 
 function carMove(){
   // carMovement
-  carSpeed *= 0.97;
+  carSpeed *= GROUNDSPEED_DECAY_MULT;
   if (keyHeld_Gas) {
-    carSpeed += 0.3;
+    carSpeed += DRIVE_POWER;
   }
   if (keyHeld_Reverse) {
-    carSpeed -= 0.2;
+    carSpeed -= REVERSE_POWER;
   }
   if (keyHeld_TurnLeft) {
-    carAng -= 0.04;
+    carAng -= TURN_RATE;
   }
   if (keyHeld_TurnRight) {
-    carAng += 0.04;
+    carAng += TURN_RATE;
   }
 
   carX += Math.cos(carAng) * carSpeed;
