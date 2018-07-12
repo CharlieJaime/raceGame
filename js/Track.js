@@ -53,14 +53,19 @@ function rowColToArrayIndex(col, row){
   return col + TRACK_COLS * row;
 }
 
+// Create gradient
+var grd=ctx.createLinearGradient(0,0,200,0);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+
 function drawtracks(){
   for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
     for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
       if(trackGrid[arrayIndex] == TRACK_WALL){
         colorRect(TRACK_W*eachCol , TRACK_H*eachRow,
-          TRACK_W-TRACK_GAP, TRACK_H-TRACK_GAP, 'blue');
+          TRACK_W-TRACK_GAP, TRACK_H-TRACK_GAP, 'rgba(244,122,255,0.6)');
       } //   if track
-    }// each track
+    }// each track col
   }// each trackrow
 }// drawtracks

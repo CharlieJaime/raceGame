@@ -15,10 +15,7 @@ window.onload = function(){
 
   setupInput();
 
-  carPic.onload = function(){
-    carPicLoaded = true;
-  }
-  carPic.src = "Black_viper.png";
+  carImageLoad();
   carRest();
 }
 

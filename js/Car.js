@@ -14,6 +14,13 @@ const TURN_RATE = 0.06;
 
 var carAng = 0;
 
+function carImageLoad(){
+  carPic.onload = function(){
+    carPicLoaded = true;
+  }
+  carPic.src = "Black_viper.png";
+}
+
 function carRest(){
   for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
     for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
