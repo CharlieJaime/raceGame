@@ -64,5 +64,3 @@ function drawtracks(){
     }// each track
   }// each trackrow
 }// drawtracks
-
-

@@ -1,12 +1,12 @@
-/**********
-Global Var
-***********/
-// Global
+// /**********
+// Global Var
+// ***********/
+// // Global
 var canvas, canvasContext;
 
-/**********
-General GamePlay
-***********/
+// /**********
+// General GamePlay
+// ***********/
 window.onload = function(){
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
@@ -36,9 +36,9 @@ function clearScreen(){
   colorRect(0,0,canvas.width, canvas.height, 'black');
 }
 
-/**********
-GamePlay Draw functions
-***********/
+// /**********
+// GamePlay Draw functions
+// ***********/
 function playArea(){
   // gameCanvas
   clearScreen();

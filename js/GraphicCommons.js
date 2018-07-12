@@ -1,6 +1,6 @@
-/**********
-GamePlay Draw functions
-***********/
+// /**********
+// GamePlay Draw functions
+// ***********/
 function drawBitmapCenteredWithRotations(useBitmap, atX, atY, withAng){
   canvasContext.save();
   canvasContext.translate(atX, atY);
