@@ -30,16 +30,11 @@ function movement(){
   carTrackColl();
 }
 
-function clearScreen(){
-  colorRect(0,0,canvas.width, canvas.height, 'black');
-}
-
 // /**********
 // GamePlay Draw functions
 // ***********/
 function playArea(){
   // gameCanvas
-  clearScreen();
   drawtracks();
   carDraw();
 }
