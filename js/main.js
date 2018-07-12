@@ -15,6 +15,7 @@ window.onload = function(){
 
   setupInput();
 
+  trackImageLoad();
   carImageLoad();
   carRest();
 }
@@ -39,6 +40,6 @@ function clearScreen(){
 function playArea(){
   // gameCanvas
   clearScreen();
-  carDraw();
   drawtracks();
+  carDraw();
 }

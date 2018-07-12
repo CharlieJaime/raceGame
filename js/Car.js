@@ -18,7 +18,7 @@ function carImageLoad(){
   carPic.onload = function(){
     carPicLoaded = true;
   }
-  carPic.src = "Black_viper.png";
+  carPic.src = "img/Black_viper.png";
 }
 
 function carRest(){
