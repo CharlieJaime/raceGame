@@ -17,7 +17,6 @@ window.onload = function(){
 function ImagesLoadedStartGame(){
   var framesPerSecond = 30;
   setInterval(updateAll, 1000/framesPerSecond);
-
   setupInput();
   carRest();
 }
