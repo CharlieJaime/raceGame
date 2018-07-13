@@ -1,7 +1,3 @@
-//Car Image
-var carPic = document.createElement("img");
-var carPicLoaded = false;
-
 // Car
 var carX = 75;
 var carY = 75;
@@ -50,7 +46,5 @@ function carMove(){
 
 
 function carDraw(){
-  if(carPicLoaded){
-    drawBitmapCenteredWithRotations(carPic, carX, carY, carAng);
-  }
+  drawBitmapCenteredWithRotations(carPic, carX, carY, carAng);
 }
