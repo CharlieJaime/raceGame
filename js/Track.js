@@ -58,12 +58,31 @@ function rowColToArrayIndex(col, row){
 function drawtracks(){
   for (var eachRow=0; eachRow<TRACK_ROWS; eachRow++) {
     for(var eachCol=0; eachCol<TRACK_COLS; eachCol++){
+
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if(trackGrid[arrayIndex] == TRACK_ROAD){
-        canvasContext.drawImage(roadImg, TRACK_W*eachCol, TRACK_H*eachRow);
-      } else if(trackGrid[arrayIndex] == TRACK_WALL){
-        canvasContext.drawImage(trackImg, TRACK_W*eachCol, TRACK_H*eachRow);
-      }//if-else if statement
+      var tileKind = trackGrid[arrayIndex];
+      var useImg;
+
+      switch(trackGrid[arrayIndex]){
+        case TRACK_ROAD:
+          useImg = roadImg
+          break;
+        case TRACK_WALL:
+          useImg = trackImg;
+          break;
+        case TRACK_GOAL:
+          useImg = goalImg;
+          break;
+        case TRACK_FLAG:
+          useImg = flagImg;
+          break;
+        case TRACK_TREE:
+          useImg = treeImg;
+          break;
+      }//switch case
+
+      canvasContext.drawImage(useImg, TRACK_W*eachCol, TRACK_H*eachRow);
+
     }// each track col
   }// each trackrow
 }// drawtracks
