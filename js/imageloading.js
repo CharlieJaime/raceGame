@@ -1,11 +1,12 @@
 //Car-Track Images
 var carPic = document.createElement("img");
 // var carPic2 = document.createElement('img');
-var roadImg = document.createElement('img');
-var trackImg = document.createElement('img');
-var flagImg = document.createElement('img');
-var treeImg = document.createElement('img');
-var goalImg = document.createElement('img');
+var trackPics = [];
+// var roadImg = document.createElement('img');
+// var trackImg = document.createElement('img');
+// var flagImg = document.createElement('img');
+// var treeImg = document.createElement('img');
+// var goalImg = document.createElement('img');
 
 var picsToLoad =  0; // set automatically based on imagelist in loadImages()
 
@@ -22,21 +23,31 @@ function beginLoadingImage(imgVar, fileName) {
   imgVar.src = fileName;
 }
 
+function loadImageForTrackCode(trackCode, fileName){
+  trackPics[trackCode] = document.createElement('img');
+  beginLoadingImage(trackPics[trackCode], fileName)
+}
+
 function loadImages(){
 
   var imageList = [
     {varName: carPic, theFile: 'img/Black_viper.png'},
-    {varName: roadImg, theFile: 'img/roadImg.png'},
-    {varName: trackImg, theFile: 'img/trackImg.png'},
-    {varName: flagImg, theFile: 'img/flagImg.png'},
-    {varName: goalImg, theFile: 'img/goalImg.png'},
-    {varName: treeImg, theFile: 'img/treeImg.png'}
+
+    {trackType: roadImg, TRACK_ROAD: 'img/roadImg.png'},
+    {trackType: trackImg, TRACK_WALL: 'img/trackImg.png'},
+    {trackType: flagImg, TRACK_FLAG: 'img/flagImg.png'},
+    {trackType: goalImg, TRACK_GOAL: 'img/goalImg.png'},
+    {trackType: treeImg, TRACK_TREE: 'img/treeImg.png'}
     // {varName: carPic2, theFile: 'img/Audi.png'}
-  ];
+];
 
   picsToLoad = imageList.length;
 
   for (var i = 0; i<imageList.length; i++) {
-    beginLoadingImage(imageList[i].varName, imageList[i].theFile);
+    if (imageList[i].varName != undfined) {
+      beginLoadingImage(imageList[i].varName, imageList[i].theFile);
+    } else {
+      loadImageForTrackCode(imageList[i].trackType, imageList[i.theFile]);
+    }
   }
 }
