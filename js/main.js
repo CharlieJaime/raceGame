@@ -24,8 +24,8 @@ function ImagesLoadedStartGame(){
   var framesPerSecond = 30;
   setInterval(updateAll, 1000/framesPerSecond);
   setupInput();
-  p1.reset();
-  p2.reset();
+  p1.reset(carPic);
+  p2.reset(carPic2);
 }
 
 function updateAll(){
