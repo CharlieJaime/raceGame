@@ -17,7 +17,7 @@ function carClass(){
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
         if(trackGrid[arrayIndex] == TRACK_PLAYERSTART){
           trackGrid[arrayIndex] = TRACK_ROAD;
-          this.Ang = -Math.PI/2; //used to change faceing ang of car
+          // this.Ang = -Math.PI/2; //used to change faceing ang of car
           this.X = eachCol * TRACK_W + TRACK_W/2;
           this.Y = eachRow * TRACK_H + TRACK_H/2.8;
         } //end if statment

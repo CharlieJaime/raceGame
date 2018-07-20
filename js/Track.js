@@ -36,16 +36,15 @@ function isObstacleAtColRow(col, row){
   }
 }
 
-function carTrackColl(){
-  var carTrackCol = Math.floor(carX / TRACK_W);
-  var carTrackRow = Math.floor(carY / TRACK_H);
+function carTrackColl(whichCar){
+  var carTrackCol = Math.floor(whichCar.X / TRACK_W);
+  var carTrackRow = Math.floor(whichCar.Y / TRACK_H);
   var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
   if (carTrackCol >= 0 && carTrackCol < TRACK_COLS && carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
     if (isObstacleAtColRow(carTrackCol, carTrackRow)) {
-      carX -= Math.cos(carAng) * carSpeed;
-      carY -= Math.sin(carAng) * carSpeed;
-
-      carSpeed *= -0.5;
+      whichCar.X -= Math.cos(whichCar.Ang) * whichCar.Speed;
+      whichCar.Y -= Math.sin(whichCar.Ang) * whichCar.Speed;
+      whichCar.Speed *= -0.5;
     }
   }
   // colorText(carTrackCol+","+carTrackRow+": "+trackIndexUnderCar, mouseX, mouseY, 'white');
