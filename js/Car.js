@@ -20,6 +20,7 @@ function carClass(){
           // this.Ang = -Math.PI/2; //used to change faceing ang of car
           this.X = eachCol * TRACK_W + TRACK_W/2;
           this.Y = eachRow * TRACK_H + TRACK_H/2.8;
+          return;
         } //end if statment
       }//end of col for
     }// end of row for
@@ -45,6 +46,8 @@ function carClass(){
 
     this.X += Math.cos(this.Ang) * this.Speed;
     this.Y += Math.sin(this.Ang) * this.Speed;
+
+    carTrackColl(this);
   }
 
   this.draw = function(){

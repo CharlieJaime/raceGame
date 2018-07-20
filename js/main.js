@@ -5,7 +5,7 @@
 var canvas, canvasContext;
 
 var p1 = new carClass();
-
+var p2 = new carClass();
 
 // /**********
 // General GamePlay
@@ -25,6 +25,7 @@ function ImagesLoadedStartGame(){
   setInterval(updateAll, 1000/framesPerSecond);
   setupInput();
   p1.reset();
+  p2.reset();
 }
 
 function updateAll(){
@@ -34,7 +35,7 @@ function updateAll(){
 
 function movement(){
   p1.move();
-  carTrackColl(p1);
+  p2.move();
 }
 
 // /**********
@@ -44,4 +45,5 @@ function playArea(){
   // gameCanvas
   drawtracks();
   p1.draw();
+  p2.draw();
 }

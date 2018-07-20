@@ -1,12 +1,7 @@
 //Car-Track Images
 var carPic = document.createElement("img");
-// var carPic2 = document.createElement('img');
+var carPic2 = document.createElement('img');
 var trackPics = [];
-// var roadImg = document.createElement('img');
-// var trackImg = document.createElement('img');
-// var flagImg = document.createElement('img');
-// var treeImg = document.createElement('img');
-// var goalImg = document.createElement('img');
 
 var picsToLoad =  0; // set automatically based on imagelist in loadImages()
 
@@ -32,12 +27,12 @@ function loadImages(){
 
   var imageList = [
     {varName: carPic, theFile: 'img/Black_viper.png'},
+    {varName: carPic2, theFile: 'img/Audi.png'},
     {trackType: TRACK_ROAD, theFile: 'img/roadImg.png'},
     {trackType: TRACK_WALL, theFile: 'img/trackImg.png'},
     {trackType: TRACK_FLAG, theFile: 'img/flagImg.png'},
     {trackType: TRACK_GOAL, theFile: 'img/goalImg.png'},
     {trackType: TRACK_TREE, theFile: 'img/treeImg.png'}
-    // {varName: carPic2, theFile: 'img/Audi.png'}
 ];
 
   picsToLoad = imageList.length;
